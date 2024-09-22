@@ -5,6 +5,9 @@ from numpy import ndarray, dtype
 
 
 def probs(x: np.ndarray, f: float) -> ndarray:
+    """
+    For a binary vector and a flip probabilty f, compute the probabilities of the transmitted vector being 0 or 1.
+    """
     r = 1 - f
 
     result = np.zeros((len(x), 2), dtype=float)
@@ -15,12 +18,21 @@ def probs(x: np.ndarray, f: float) -> ndarray:
     return result
 
 def shuffled_columns(rng: np.random.Generator, x: np.ndarray) -> np.ndarray:
+    """
+    Shuffle the columns of a matrix.
+    """
     c = x.copy()
     rng.shuffle(c, axis=1)
     return c
 
 
 def create_parity_check_matrix(n: int, w_r: int, w_c: int, br: int = 100) -> np.ndarray | None:
+    """
+    Create a random parity check matrix with given parameters. If the matrix is not full rank, try again, up to br times.
+    If no matrix is found, return None.
+    """
+
+    assert n % w_r != 0, "n must not be divisible by w_r, otherwise the matrix is not full rank"
     c = 0
     while c < br:
         c += 1
@@ -43,6 +55,10 @@ def create_parity_check_matrix(n: int, w_r: int, w_c: int, br: int = 100) -> np.
 
 
 def gauss_jordan_rref(H: np.ndarray) -> np.ndarray:
+    """
+    Compute the row reduced echelon form of a matrix H using the Gauss-Jordan algorithm.
+    """
+
     H = np.copy(H)
     m, n = H.shape
     row = 0
@@ -69,6 +85,9 @@ def gauss_jordan_rref(H: np.ndarray) -> np.ndarray:
     return H
 
 def create_generator_matrix(H: np.ndarray) -> (np.ndarray, np.ndarray):
+    """
+    Create a generator matrix G from a parity check matrix H.
+    """
 
     H_c = H.copy()
 
@@ -87,9 +106,17 @@ def create_generator_matrix(H: np.ndarray) -> (np.ndarray, np.ndarray):
 
 
 def is_canon_unit_vec(v: np.ndarray, index: int) -> bool:
+    """
+    Check if a vector is a canonical unit vector.
+    """
+
     return v[index] == 1 and v.sum() == 1
 
 def permute_columns(H: np.ndarray) -> list[tuple[int, int]]:
+    """
+    Permute columns of a matrix until the first part of the matrix is the identity.
+    """
+
     m, n = H.shape
 
     col_switches = []

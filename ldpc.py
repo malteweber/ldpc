@@ -21,27 +21,29 @@ class LDPC:
         self.generator_matrix = G
 
     def encode(self, x: np.ndarray) -> np.ndarray:
+        """
+        Encode a word using the generator matrix
+        """
         return self.generator_matrix @ x % 2
 
     def bp_tan_decode(self, x: np.array, f: float, max_iter: int, input_type: InputType = InputType.BINARY) -> (bool, np.ndarray[int]):
-
+        """
+        Decode a transmitted word using belief propagation algorithm
+        """
         def bp_step_tan(
                 m: int,
                 n: int,
                 V: dict[int, list[int]],
                 C: dict[int, list[int]],
-                c: np.array,
-                q: np.array,
-        ):
+                c: np.ndarray,
+                q: np.ndarray,
+        ) -> (np.ndarray, np.ndarray):
+            """
+            Perform a single iteration of the belief propagation algorithm
+            """
 
             r = np.zeros(shape=(q.shape[1], q.shape[0]), dtype=float)
             q_posteriori = np.zeros(n, dtype=float)
-
-            r_alt = np.zeros(shape=(q.shape[1], q.shape[0]), dtype=float)
-
-            h_q = self.parity_check_matrix.T*q
-            for i in range(n):
-                r[:, i] = 2*np.atanh(np.prod(np.tanh(h_q/2), axis=0)/np.tanh(h_q[i,:]/2))
 
             for i in range(n):
                 for j in range(m):

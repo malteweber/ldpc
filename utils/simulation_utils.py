@@ -79,12 +79,7 @@ def choose_from_random_by_girth_metric(
         w_r: int,
         w_c: int) -> (np.ndarray, float, list[float]):
     """
-    :param girth_metric: A function that takes a Tanner graph and returns a float
-    :param nr_of_matrices: The number of matrices to generate to choose the best from regarding the girth metric
-    :param n: The number of columns in the parity check matrix
-    :param w_r: The row weight of the parity check matrix
-    :param w_c:
-    :return:
+    Choose the best parity check matrix from nr_of_matrices random ones, based on the girth_metric.
     """
     best = (None, 0)
     girths = []

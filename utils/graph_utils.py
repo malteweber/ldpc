@@ -5,7 +5,10 @@ import networkx as nx
 import numpy as np
 
 
-def girth_average(g: nx.Graph):
+def girth_average(g: nx.Graph) -> float:
+    """
+    Calculate the girth average of a Tanner graph g
+    """
     girths = []
     for n in g.nodes():
         if n.endswith("1"):
@@ -17,7 +20,10 @@ def girth_average(g: nx.Graph):
 
     return girth_avg
 
-def girth_average_log(g: nx.Graph):
+def girth_average_log(g: nx.Graph) -> float:
+    """
+    Calculate the adapted girth average of a Tanner graph g
+    """
     girths = []
 
     for n in g.nodes():
@@ -34,7 +40,11 @@ def girth_average_log(g: nx.Graph):
     return girth_avg
 
 
-def min_cycle_length(tg, source_node):
+def min_cycle_length(tg, source_node) -> int:
+    """
+    Calculate the length of the shortest cycle in a Tanner graph tg starting from source_node.
+    If there is not cycle, return np.inf.
+    """
     leaves = [(None, source_node)]
 
     all_nodes = {source_node}
@@ -58,6 +68,9 @@ def min_cycle_length(tg, source_node):
 
 
 def create_tanner_graph(H: np.ndarray) -> nx.Graph:
+    """
+    Create a Tanner graph from a parity check matrix H
+    """
     tg = nx.Graph()
     for i in range(H.shape[0]):
         tg.add_node(f"{i}_0")

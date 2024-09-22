@@ -9,6 +9,9 @@ class BinarySymmetricChannel:
         self.f = f
 
     def transmit(self, x: np.ndarray) -> np.ndarray:
+        """
+        Simulate transmission of a signal through the channel
+        """
         y = x.copy()
         for i in range(x.size):
             e = choices([0, 1], [1 - self.f, self.f], k=1)[0]
