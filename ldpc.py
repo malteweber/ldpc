@@ -48,14 +48,10 @@ class LDPC:
                     match tmp := prod([tanh(q[i_1, j] / 2) for i_1 in V[j] if i_1 != i]):
                         case 1:
                             r[j, i] = np.inf
-                            print("HALIHALLO NP.INF")
                         case -1:
                             r[j, i] = -np.inf
-                            print("HALIHALLO -NP.INF")
                         case _:
                             r[j, i] = 2 * atanh(tmp)
-
-            print(r_alt - r)
                     
 
             for i in range(n):
