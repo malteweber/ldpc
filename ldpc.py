@@ -9,18 +9,18 @@ class InputType(Enum):
     LOG_LIKELIHOODS = 1
 
 class LDPC:
-    parity_check_matrix: np.ndarray[int]
+    parity_check_matrix: np.ndarray
     n: int
     m: int
-    generator_matrix: np.ndarray[int]
+    generator_matrix: np.ndarray
 
-    def __init__(self, parity_check_matrix: np.ndarray[int]):
+    def __init__(self, parity_check_matrix: np.ndarray):
         G, H_new = create_generator_matrix(parity_check_matrix)
         self.parity_check_matrix = H_new
         self.m, self.n = self.parity_check_matrix.shape
         self.generator_matrix = G
 
-    def encode(self, x: np.ndarray[int]) -> np.ndarray[int]:
+    def encode(self, x: np.ndarray) -> np.ndarray:
         return self.generator_matrix @ x % 2
 
     def bp_tan_decode(self, x: np.array, f: float, max_iter: int, input_type: InputType = InputType.BINARY) -> (bool, np.ndarray[int]):
@@ -37,6 +37,12 @@ class LDPC:
             r = np.zeros(shape=(q.shape[1], q.shape[0]), dtype=float)
             q_posteriori = np.zeros(n, dtype=float)
 
+            r_alt = np.zeros(shape=(q.shape[1], q.shape[0]), dtype=float)
+
+            h_q = self.parity_check_matrix.T*q
+            for i in range(n):
+                r[:, i] = 2*np.atanh(np.prod(np.tanh(h_q/2), axis=0)/np.tanh(h_q[i,:]/2))
+
             for i in range(n):
                 for j in range(m):
                     match tmp := prod([tanh(q[i_1, j] / 2) for i_1 in V[j] if i_1 != i]):
@@ -48,6 +54,8 @@ class LDPC:
                             print("HALIHALLO -NP.INF")
                         case _:
                             r[j, i] = 2 * atanh(tmp)
+
+            print(r_alt - r)
                     
 
             for i in range(n):

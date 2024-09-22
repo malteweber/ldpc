@@ -4,7 +4,7 @@ import numpy as np
 from numpy import ndarray, dtype
 
 
-def probs(x: np.ndarray[Any, dtype[float]], f: float) -> ndarray[Any, dtype[float]]:
+def probs(x: np.ndarray, f: float) -> ndarray:
     r = 1 - f
 
     result = np.zeros((len(x), 2), dtype=float)
@@ -14,13 +14,13 @@ def probs(x: np.ndarray[Any, dtype[float]], f: float) -> ndarray[Any, dtype[floa
 
     return result
 
-def shuffled_columns(rng: np.random.Generator, x: np.ndarray[int]) -> np.ndarray[int]:
+def shuffled_columns(rng: np.random.Generator, x: np.ndarray) -> np.ndarray:
     c = x.copy()
     rng.shuffle(c, axis=1)
     return c
 
 
-def create_parity_check_matrix(n: int, w_r: int, w_c: int, br: int = 100) -> np.ndarray[int] | None:
+def create_parity_check_matrix(n: int, w_r: int, w_c: int, br: int = 100) -> np.ndarray | None:
     c = 0
     while c < br:
         c += 1
@@ -42,7 +42,7 @@ def create_parity_check_matrix(n: int, w_r: int, w_c: int, br: int = 100) -> np.
             return None
 
 
-def gauss_jordan_rref(H: np.ndarray[int]) -> np.ndarray[int]:
+def gauss_jordan_rref(H: np.ndarray) -> np.ndarray:
     H = np.copy(H)
     m, n = H.shape
     row = 0
@@ -68,7 +68,7 @@ def gauss_jordan_rref(H: np.ndarray[int]) -> np.ndarray[int]:
 
     return H
 
-def create_generator_matrix(H: np.ndarray[int]) -> (np.ndarray[int], np.ndarray[int]):
+def create_generator_matrix(H: np.ndarray) -> (np.ndarray, np.ndarray):
 
     H_c = H.copy()
 

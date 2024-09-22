@@ -8,7 +8,7 @@ class BinarySymmetricChannel:
     def __init__(self, f: float):
         self.f = f
 
-    def transmit(self, x: np.ndarray[int]) -> np.ndarray[int]:
+    def transmit(self, x: np.ndarray) -> np.ndarray:
         y = x.copy()
         for i in range(x.size):
             e = choices([0, 1], [1 - self.f, self.f], k=1)[0]
