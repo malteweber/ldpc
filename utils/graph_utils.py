@@ -1,6 +1,5 @@
 from collections import Counter
 from math import log
-from turtledemo.penrose import start
 
 import networkx as nx
 import numpy as np
