@@ -1,5 +1,6 @@
 import argparse
 import json
+import time
 
 from utils.graph_utils import girth_average
 from utils.simulation_utils import test_girth_metric_binary_symmetric
@@ -24,6 +25,8 @@ if __name__ == "__main__":
 
     print(args.flip_rates)
 
+    start_time = time.time()
+
     c, e = test_girth_metric_binary_symmetric(
         girth_metric=girth_average,
         nr_of_matrices=args.nr_of_matrices,
@@ -34,10 +37,13 @@ if __name__ == "__main__":
         bp_iterations=args.bp_iterations,
         flip_rates=args.flip_rates)
 
+    end_time = time.time()
+
     result_dict = {
         "convergence_rates": c,
         "bit_error_rates": e,
-        "parameters": vars(args)
+        "parameters": vars(args),
+        "elapsed_time": end_time - start_time
     }
 
     with open(args.output, "w") as f:
