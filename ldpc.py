@@ -1,6 +1,7 @@
 from enum import Enum
 
 import numpy as np
+import scipy.sparse as sp
 from utils.ldpc_utils import probs, create_generator_matrix
 from math import atanh, tanh, prod
 
@@ -47,8 +48,9 @@ class LDPC:
             Perform a single iteration of the belief propagation algorithm
             """
 
-            r = np.zeros(shape=(q.shape[1], q.shape[0]), dtype=float)
+            r = sp.dok_array((q.shape[1], q.shape[0]), dtype=float)
             q_posteriori = np.zeros(n, dtype=float)
+            q_new = sp.dok_array(q.shape, dtype=float)
 
             for j, i_list in V.items():
                 for i in i_list:
@@ -56,12 +58,12 @@ class LDPC:
 
             for i, j_list in C.items():
                 for j in j_list:
-                    q[i, j] = c[i] + sum([r[j_1, i] for j_1 in C[i] if j_1 != j])
+                    q_new[i, j] = c[i] + sum([r[j_1, i] for j_1 in C[i] if j_1 != j])
 
             for i, j_list in C.items():
                 q_posteriori[i] = c[i] + sum([r[j_1, i] for j_1 in j_list])
 
-            return q, q_posteriori
+            return q_new, q_posteriori
 
         if input_type == InputType.BINARY:
             p = probs(x, f)
