@@ -2,6 +2,8 @@ from typing import Any
 
 import numpy as np
 from numpy import ndarray, dtype
+from random import sample
+from scipy.sparse import dok_array, csc_array, vstack
 
 
 def probs(x: np.ndarray, f: float) -> ndarray:
@@ -131,3 +133,15 @@ def permute_columns(H: np.ndarray) -> list[tuple[int, int]]:
                     col_switches.append((i,j))
                     break
     return col_switches
+
+def normal_pdf(x: np.ndarray, mean: float, std: float) -> float:
+    """
+    Compute the normal probability density.
+    """
+    return (1 / (std * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mean) / std) ** 2)
+
+def binary_log_odds(y: np.ndarray, sigma: float) -> float:
+    """
+    Compute the binary log odds.
+    """
+    return np.log(normal_pdf(y, 0, sigma) / normal_pdf(y, 1, sigma))
