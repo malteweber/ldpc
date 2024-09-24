@@ -1,9 +1,5 @@
-from typing import Any
-
 import numpy as np
-from numpy import ndarray, dtype
-from random import sample
-from scipy.sparse import dok_array, csc_array, vstack
+from numpy import ndarray
 
 
 def probs(x: np.ndarray, f: float) -> ndarray:
