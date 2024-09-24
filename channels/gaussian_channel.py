@@ -7,7 +7,7 @@ class GaussianChannel:
     def __init__(self, noise_std: float):
         self.noise_std = noise_std
 
-    def transmit(self, x: np.ndarray[int]) -> np.ndarray:
+    def transmit(self, x: np.ndarray) -> np.ndarray:
         """
         Simulate transmission of a signal through the channel
         """
