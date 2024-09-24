@@ -82,3 +82,10 @@ def run_gaussian_channel_simulation(
     error_rate = 1 - sum(correctly_transmitted_bits) / nr_of_transmitted_bits
 
     return convergence_rate, error_rate
+
+def std_from_signal_to_noise_ration(snr: float) -> float:
+    """
+    Compute the standard deviation of the noise from the signal to noise ratio.
+    """
+
+    return 10**(-snr / 20)
