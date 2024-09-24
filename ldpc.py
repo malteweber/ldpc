@@ -29,7 +29,7 @@ class LDPC:
         return self.generator_matrix @ x % 2
 
 
-    def decode(self, x: np.ndarray, f: float, max_iter: int, input_type: InputType) -> (bool, np.ndarray[int]):
+    def decode(self, x: np.ndarray, f: float, max_iter: int, input_type: InputType) -> (bool, np.ndarray):
         """
         Decode a transmitted word using belief propagation algorithm
         """
@@ -52,7 +52,7 @@ class LDPC:
 
             for i, j_list in self.c.items():
                 for j in j_list:
-                    q_new[i, j] = prior[i] + sum([r[j_1, i] for j_1 in C[i] if j_1 != j])
+                    q_new[i, j] = prior[i] + sum([r[j_1, i] for j_1 in j_list if j_1 != j])
 
             for i, j_list in self.c.items():
                 q_posteriori[i] = prior[i] + sum([r[j_1, i] for j_1 in j_list])
