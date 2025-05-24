@@ -1,23 +1,13 @@
-# Programmierprojekt Informationstheorie
-## Sommersemester 2024
+# Low Density Parity Check Code
 
- - In diesem Projekt wird die Erzeugung, Kodierung und Dekodierung von LDPC-Codes implementiert. Diese ist in der Dateil
-`ldpc.py` enthalten. Hilfsfunktionen die genutzt werden sind in `utils/ldfc_utils.py` enthalten.
+ - This project implements the generation, encoding, and decoding of LDPC codes. This is included in the file
+ldpc.py. Helper functions used are included in utils/ldfc_utils.py.
 
- - Weiterhin wird die Methode aus dem Paper "A heuristic search for good low-density parity-check codes at short block lengths"[1]
-implementiert und in einigen Simulationen getestet.
+ - Furthermore, the method from the paper "A heuristic search for good low-density parity-check codes at short block lengths"[1]
+is implemented and tested in some simulations.
 
- - Die Simulation der Übertragungskanäle Binary Symmetric Channel (BSC) und Additive White Gaussian Noise Channel (AWGN)
-sind in `channels` enthalten.
-
- - Die Datei `utils/simulation_utils.py` enthält Funktionen für die Simulationsexperimente.
- - Die genutzte Python-Version in Python 3.12.0
- - Die genutzten Bibliotheken sind in `requirements.txt` enthalten.
-   - numpy: Datenstrukturen für Matrizen und Vektoren, trigonometrische Funktionen
-   - scipy: Datenstrukturen für spärlich besetzte Matrizen
-   - matplotlib: Visualisierung von Daten
-   - networkx: Graphenstruktur für Tannergraphen
-
+ - The simulation of the transmission channels Binary Symmetric Channel (BSC) and Additive White Gaussian Noise Channel (AWGN)
+are included in channels.
 
 [1]: Yongyi Mao and A. H. Banihashemi, "A heuristic search for good low-density parity-check codes at short block lengths," ICC 2001. IEEE International Conference on Communications. Conference Record (Cat. No.01CH37240), Helsinki, Finland, 2001, pp. 41-44 vol.1, doi: 10.1109/ICC.2001.936269.
 keywords: {Parity check codes;Iterative decoding;Educational institutions;Systems engineering and theory;Broadband communication;Delay effects;Signal to noise ratio;Distributed computing;Computational modeling;Graph theory},
